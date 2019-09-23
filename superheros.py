@@ -24,17 +24,15 @@ pass
 
 
 class Hero:
-    def __init__(self, name, current_health, starting_health,):
+    def __init__(self, name, current_health, starting_health):
         self.abilities = list()
         self.armors = list()
         self.name = name
         self.starting_health = starting_health
         self.current_health = current_health
 
-
-
     def add_ability(self, ability):
-        self.ability = abiilites.append(ability)
+        self.abilities.append(ability)
     def attack(self):
         pass
     def defend(self):
@@ -51,7 +49,7 @@ class Hero:
 if __name__ == "__main__":
     # If you run this file from the terminal
     # this block is executed.
-    my_hero = Hero("Grace Hopper", 200, 200)
-    print(my_hero.name)
-    print(my_hero.current_health)
-    # print(my_hero.current_health, 50)
+    ability = Ability("Great Debugging", 50)
+    hero = Hero("Grace Hopper", 200, 200)
+    hero.add_ability(ability)
+    print(hero.abilities)
