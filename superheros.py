@@ -20,7 +20,6 @@ class Armor:
 
     def block(self, max_block):
         block = random.randitI(self.max_block, 100)
-pass
 
 
 class Hero:
@@ -33,14 +32,28 @@ class Hero:
 
     def add_ability(self, ability):
         self.abilities.append(ability)
+
+
     def attack(self):
-        pass
+        damage_total = 0
+        for ability in self.abilities:
+            damage_total += ability.attack()
+        return damage_total
+
     def defend(self):
-        pass
+        block_total = 0
+        for armor in self.armors:
+            block_total += armor.block()
+        return block_total
+
+
     def take_damage(self, damage):
-        pass
+        self.armors.append(armor)
+
+
     def is_alive(self):
-        pass
+        self.current_health -= damage -self.defend()
+
     def fight(self):
         pass
 
