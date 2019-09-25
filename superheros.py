@@ -33,7 +33,6 @@ class Hero:
     def add_ability(self, ability):
         self.abilities.append(ability)
 
-
     def attack(self):
         damage_total = 0
         for ability in self.abilities:
@@ -46,13 +45,18 @@ class Hero:
             block_total += armor.block()
         return block_total
 
-
-    def take_damage(self, damage):
+    def add_armor(self, armor):
         self.armors.append(armor)
 
+    def take_damage(self, damage):
+        self.current_health -= damage - self.defend()
 
     def is_alive(self):
-        self.current_health -= damage -self.defend()
+        if self.current_health > 0:
+            return True
+        else:
+            return False
+
 
     def fight(self):
         pass
