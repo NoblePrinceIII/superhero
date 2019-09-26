@@ -64,16 +64,32 @@ class Hero:
             return False
 
 
-    def fight(self):
-        pass
+    def fight(self, opponent):
+        if len(self.abilities) == 0 and len(opponent.abilities) == 0:
+            return print("Draw")
+        while self.is_alive() and opponent.is_alive():
+            self.take_damage(opponent.attack())
+            opponent.take_damage(self.attack())
+            if self.is_alive() == False:
+                return print(f"{opponent.name} won!")
+            else:
+                return print(f"{self.name} won!")
+
+
 
 
 
 if __name__ == "__main__":
     # If you run this file from the terminal
     # this block is executed.
-    hero = Hero("Grace Hopper", 200)
-    hero.take_damage(150)
-    print(hero.is_alive())
-    hero.take_damage(15000)
-    print(hero.is_alive())
+    hero1 = Hero("Wonder Woman")
+    hero2 = Hero("Dumbledore")
+    ability1 = Ability("Super Speed", 300)
+    ability2 = Ability("Super Eyes", 130)
+    ability3 = Ability("Wizard Wand", 80)
+    ability4 = Ability("Wizard Beard", 20)
+    hero1.add_ability(ability1)
+    hero1.add_ability(ability2)
+    hero2.add_ability(ability3)
+    hero2.add_ability(ability4)
+    hero1.fight(hero2)
