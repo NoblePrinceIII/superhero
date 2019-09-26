@@ -23,6 +23,15 @@ class Armor:
         return block
 
 
+class Weapon(Ability):
+    def attack(self):
+        half_strength = self.attack_strength // 2
+        return randint(half_strength, self.attack_strength)
+
+
+
+
+
 class Hero:
     def __init__(self, name, starting_health=100):
         self.abilities = list()
@@ -31,8 +40,11 @@ class Hero:
         self.starting_health = starting_health
         self.current_health = starting_health
 
+
     def add_ability(self, ability):
         self.abilities.append(ability)
+
+
 
     def attack(self):
         damage_total = 0
@@ -40,12 +52,12 @@ class Hero:
             damage_total += ability.attack()
         return damage_total
 
+
     def defend(self):
     # adds "block" on each armor
         block_total = 0
         for armor in self.armor:
             block_total += armor.block()
-
         return block_total
 
 
@@ -53,9 +65,11 @@ class Hero:
     # Calculates the total damage from all ability attacks
         self.armor.append(armor)
 
+
     def take_damage(self, damage):
     # Adds armor object which is passed in self.armors
         self.current_health -= damage - self.defend()
+
 
     def is_alive(self):
         if self.current_health >= 0:
@@ -75,7 +89,22 @@ class Hero:
             else:
                 return print(f"{self.name} won!")
 
+class Team:
+    # Initialize Team
+    def __init__(self, name):
+        self.name = name
+        self.heroes = list()
 
+
+    def add_hero(hero):
+        pass
+
+
+    def remove_hero(name):
+         pass
+
+    def view_all_heros():
+        pass
 
 
 
