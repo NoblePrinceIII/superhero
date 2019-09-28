@@ -1,7 +1,6 @@
 import random
 
 
-# Super Hero's Ability
 class Ability:
     def __init__(self, name, attack_strength):
         self.name = name
@@ -12,7 +11,6 @@ class Ability:
         return strongest_attack
 
 
-# Super Hero's Armor
 class Armor:
     def __init__(self, name, max_block):
         self.name = name
@@ -26,10 +24,7 @@ class Armor:
 class Weapon(Ability):
     def attack(self):
         half_strength = self.attack_strength // 2
-        return randint(half_strength, self.attack_strength)
-
-
-
+        return random.randint(half_strength, self.attack_strength)
 
 
 class Hero:
@@ -43,7 +38,6 @@ class Hero:
 
     def add_ability(self, ability):
         self.abilities.append(ability)
-
 
 
     def attack(self):
@@ -89,22 +83,28 @@ class Hero:
             else:
                 return print(f"{self.name} won!")
 
+
 class Team:
     # Initialize Team
     def __init__(self, name):
         self.name = name
         self.heroes = list()
 
+    # remove hero from list
+    def remove_hero(self, name):
+        for hero in self.heroes:
+            if hero.name == name:
+                self.heroes.remove(hero)
+                return
+        return 0
 
-    def add_hero(hero):
-        pass
+    def view_all_heroes(self):
+        for hero in self.heroes:
+            print(hero.name)
 
-
-    def remove_hero(name):
-         pass
-
-    def view_all_heros():
-        pass
+    def add_hero(self, hero):
+        self.hero = hero
+        self.heroes.append(hero)
 
 
 
@@ -113,10 +113,10 @@ if __name__ == "__main__":
     # this block is executed.
     hero1 = Hero("Wonder Woman")
     hero2 = Hero("Dumbledore")
-    ability1 = Ability("Super Speed", 300)
-    ability2 = Ability("Super Eyes", 130)
-    ability3 = Ability("Wizard Wand", 80)
-    ability4 = Ability("Wizard Beard", 20)
+    ability1 = Ability("Super Speed", 90)
+    ability2 = Ability("Super Eyes", 80)
+    ability3 = Ability("Wizard Wand", 11000)
+    ability4 = Ability("Wizard Beard", 10000)
     hero1.add_ability(ability1)
     hero1.add_ability(ability2)
     hero2.add_ability(ability3)
