@@ -34,7 +34,8 @@ class Hero:
         self.name = name
         self.starting_health = starting_health
         self.current_health = starting_health
-
+        self.kills = 0
+        self.deaths = 0
 
     def add_ability(self, ability):
         self.abilities.append(ability)
@@ -71,6 +72,15 @@ class Hero:
         else:
             return False
 
+    def add_kill(self, num_kills):
+        # This method should add the number of kills to self.kills
+        self.kills += num_kills
+        return self.kills
+
+    def add_deaths(self, num_deaths):
+        # This method should add the number of deaths to self.deaths
+        self.deaths += num_deaths
+        return self.deaths
 
     def fight(self, opponent):
         if len(self.abilities) == 0 and len(opponent.abilities) == 0:
@@ -79,9 +89,16 @@ class Hero:
             self.take_damage(opponent.attack())
             opponent.take_damage(self.attack())
             if self.is_alive() == False:
+                self.add_deaths(1)
+                opponent.add_kill(1)
                 return print(f"{opponent.name} won!")
+
             else:
+                self.add_kill(1)
+                opponent.add_deaths(1)
                 return print(f"{self.name} won!")
+
+
 
 
 class Team:
