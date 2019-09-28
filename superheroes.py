@@ -7,8 +7,10 @@ class Ability:
         self.attack_strength = attack_strength
 
     def attack(self):
+        # """Return a value between 0 and the value set by self.max_damage."""
         strongest_attack = random.randint(0, self.attack_strength)
         return strongest_attack
+
 
 
 class Armor:
@@ -21,10 +23,12 @@ class Armor:
         return block
 
 
+
 class Weapon(Ability):
     def attack(self):
         half_strength = self.attack_strength // 2
         return random.randint(half_strength, self.attack_strength)
+
 
 
 class Hero:
@@ -36,9 +40,14 @@ class Hero:
         self.current_health = starting_health
         self.kills = 0
         self.deaths = 0
-
     def add_ability(self, ability):
+    # """ability object to abilities:List"""
         self.abilities.append(ability)
+
+    def add_weapon(self, weapon):
+        '''Add weapon to self.abilities'''
+        self.abiilities.append(weapon)
+
 
 
     def attack(self):
@@ -47,22 +56,19 @@ class Hero:
             damage_total += ability.attack()
         return damage_total
 
-
-    def defend(self):
-    # adds "block" on each armor
-        block_total = 0
+    def defend(self, damage_amt):
+    # """ adds "block" on each armor"""
+        damage_amt = 0
         for armor in self.armor:
-            block_total += armor.block()
+            damage_amt += armor.block()
         return block_total
 
-
-    def add_armor(self, armor):
-    # Calculates the total damage from all ability attacks
+    def add_armor(self, amor):
+    # """Calculates the total damage from all ability attacks"""
         self.armor.append(armor)
 
-
     def take_damage(self, damage):
-    # Adds armor object which is passed in self.armors
+ # """Updates self.current_health to reflect the damage minus the defense."""
         self.current_health -= damage - self.defend()
 
 
@@ -120,8 +126,20 @@ class Team:
             print(hero.name)
 
     def add_hero(self, hero):
-        self.hero = hero
         self.heroes.append(hero)
+
+    def attack(self, other_team):
+        hero = random.choice(self.heroes)
+        opponenet = random.choice(other_team.heroes)
+        Hero.fight(hero, opponent)
+
+    def revive_heroes(self, health = 100):
+        for hero in self.heroes:
+            hero.current_health = health
+
+    def stats(self):
+        for hero in self.heroes:
+            print(hero.name, hero.kills, hero.deaths, hero.abilities, hero.armor)
 
 
 
