@@ -66,14 +66,15 @@ class Hero:
 
     def take_damage(self, damage):
         # Updates self.current_health to reflect the damage minus the defense.
-        self.current_health -= damage - self.defend()
+        absorbed_damage = damage - self.defend()
+        self.current_health -= absorbed_damage
+
+
 
     def is_alive(self):
         # checks if Hero is alive
-        if self.current_health > 0:
-            return True
-        else:
-            return False
+        return self.current_health > 0
+
 
     def add_kill(self, num_kills):
         # adds the amount of kills to self.kills
@@ -183,7 +184,7 @@ class Arena:
         new_hero.add_ability(abilities)
         new_hero.add_armor(armors)
         new_hero.add_weapon(weapons)
-        return Hero(superhero_name)
+        return new_hero
 
     def build_team_one(self):
         '''Prompt the user to build team_one '''
