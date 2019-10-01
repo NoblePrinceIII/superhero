@@ -48,8 +48,8 @@ class Hero:
 
     def attack(self):
         damage_total = 0
-        for ability in self.abilities:
-            damage_total += ability.attack()
+        for a in self.abilities:
+            damage_total += a.attack()
         return damage_total
 
     def defend(self):
@@ -91,16 +91,14 @@ class Hero:
             self.take_damage(opponent.attack())
             opponent.take_damage(self.attack())
 
-            if self.is_alive() is False:
-                self.add_deaths(1)
-                opponent.add_kill(1)
-                return print(f"{opponent.name} won!")
-            else:
-                self.add_kill(1)
-                opponent.add_deaths(1)
-                return print(f"{self.name} won!")
-
-
+        if self.is_alive() is False:
+            self.add_deaths(1)
+            opponent.add_kill(1)
+            print(f"{opponent.name} won!")
+        elif opponent.is_alive() is False:
+            self.add_kill(1)
+            opponent.add_deaths(1)
+            print(f"{self.name} won!")
 
 class Team:
     def __init__(self, name):
@@ -127,10 +125,10 @@ class Team:
 
     def attack(self, other_team):
         # Randomly select a living hero from each team and have
-        if self.living_heroes() and other_team.living_heroes():
-            hero1 = self.heroes[random.randint(0, (len(self.heroes))-1)]
-            hero2 = other_team.heroes[random.randint(0, (len(other_team.heroes))-1)]
-            hero1.fight(hero2)
+        while len(self.living_heroes()) > 0 and len(other_team.living_heroes()) > 0:
+            hero_1 = random.choice(self.living_heroes())
+            hero_2 = random.choice(other_team.living_heroes())
+            hero_1.fight(hero_2)
 
     def living_heroes(self):
         living_hero = []
@@ -150,8 +148,8 @@ class Team:
 
 class Arena:
     def __init__(self):
-        self.team_one = Team("team_one")
-        self.team_two = Team("team_two")
+        self.team_one = Team("team one")
+        self.team_two = Team("team two")
 
     def create_ability(self):
         '''Prompt for Ability information.
@@ -189,18 +187,14 @@ class Arena:
 
     def build_team_one(self):
         '''Prompt the user to build team_one '''
-        first_team_name = input("Enter name for Team Here: ")
-        first_team = Team(first_team_name)
-        first_team_heroes = int(input(f"select amount of heroes on {first_team_name}: "))
+        first_team_heroes = int(input(f"select amount of heroes on {self.team_one.name}: "))
         for i in range(first_team_heroes):
             hero = self.create_hero()
             self.team_one.add_hero(hero)
 
     def build_team_two(self):
         '''Prompt the user to build team_two'''
-        second_team_name = input("Enter name for Second Team Here: ")
-        second_team = Team(second_team_name)
-        second_team_heroes = int(input(f"select amount of heroes on {second_team_name}: "))
+        second_team_heroes = int(input(f"select amount of heroes on {self.team_two.name}: "))
         for j in range(second_team_heroes):
             hero = self.create_hero()
             self.team_two.add_hero(hero)
