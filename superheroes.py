@@ -88,22 +88,17 @@ class Hero:
     def fight(self, opponent):
         # checks if oppoenent wins lose or draw also adds death and kill count
         while self.is_alive() and opponent.is_alive():
-            if len(self.abilities) == 0 and len(opponent.abilities) == 0:
-                print("Draw")
-                break
-            print("fight error")
             self.take_damage(opponent.attack())
             opponent.take_damage(self.attack())
 
-        if self.is_alive() is False:
-            self.add_deaths(1)
-            opponent.add_kill(1)
-            print(f"{opponent.name} won!")
-        else:
-            self.add_kill(1)
-            opponent.add_deaths(1)
-            print(f"{self.name} won!")
-
+            if self.is_alive() is False:
+                self.add_deaths(1)
+                opponent.add_kill(1)
+                return print(f"{opponent.name} won!")
+            else:
+                self.add_kill(1)
+                opponent.add_deaths(1)
+                return print(f"{self.name} won!")
 
 
 
@@ -134,17 +129,16 @@ class Team:
         # Randomly select a living hero from each team and have
         # them fight until one or both teams have no surviving heroes.
         # Hint: Use the fight method in the Hero class.
-        while self.living_hero() and other_team.living_hero():
-            hero = random.choice(self.living_hero())
-            opponent = random.choice(other_team.living_hero())
-            hero.fight(opponent)
+        if self.living_heroes() and other_team.living_heroes():
+            hero1 = self.heroes[random.randint(0, (len(self.heroes))-1)]
+            hero2 = other_team.heroes[random.randint(0, (len(other_team.heroes))-1)]
+            hero1.fight(hero2)
 
-    def living_hero(self):
+    def living_heroes(self):
         living_hero = []
         for hero in self.heroes:
             if hero.is_alive() is True:
                 living_hero.append(hero)
-                return
         return living_hero
 
     def revive_heroes(self, health = 100):
@@ -152,8 +146,11 @@ class Team:
             hero.current_health = health
 
     def stats(self):
+        # live_hero = self.living_heroes()
+        # if len(live_hero) > 0:
+            # print(f"{live_hero.name} wins!")
         for hero in self.heroes:
-            print(hero.name, hero.kills, hero.deaths, hero.abilities, hero.armors)
+            print(f"{hero.name}'s K/D/R: {hero.kills}/{hero.deaths}")
 
 
 class Arena:
@@ -204,7 +201,6 @@ class Arena:
             hero = self.create_hero()
             self.team_one.add_hero(hero)
 
-
     def build_team_two(self):
         '''Prompt the user to build team_two'''
         second_team_name = input("Enter name for Second Team Here: ")
@@ -218,14 +214,11 @@ class Arena:
         '''Battle team_one and team_two together.'''
         self.team_one.attack(self.team_two)
 
-
-
     def show_stats(self):
         print("The Results are: ")
-        first_team_results = self.team_one.stats()
-        second_team_results = self.team_two.stats()
-        print(first_team_results)
-        print(second_team_heroes)
+        self.team_one.stats()
+        self.team_two.stats()
+
 
 
 
@@ -240,7 +233,7 @@ if __name__ == "__main__":
     #Build Teams
     arena.build_team_one()
     arena.build_team_two()
-
+    game_is_running = True
     while game_is_running:
 
         arena.team_battle()
