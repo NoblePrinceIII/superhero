@@ -127,8 +127,6 @@ class Team:
 
     def attack(self, other_team):
         # Randomly select a living hero from each team and have
-        # them fight until one or both teams have no surviving heroes.
-        # Hint: Use the fight method in the Hero class.
         if self.living_heroes() and other_team.living_heroes():
             hero1 = self.heroes[random.randint(0, (len(self.heroes))-1)]
             hero2 = other_team.heroes[random.randint(0, (len(other_team.heroes))-1)]
@@ -146,9 +144,6 @@ class Team:
             hero.current_health = health
 
     def stats(self):
-        # live_hero = self.living_heroes()
-        # if len(live_hero) > 0:
-            # print(f"{live_hero.name} wins!")
         for hero in self.heroes:
             print(f"{hero.name}'s K/D/R: {hero.kills}/{hero.deaths}")
 
@@ -220,8 +215,6 @@ class Arena:
         self.team_two.stats()
 
 
-
-
 if __name__ == "__main__":
     # If you run this file from the terminal
     # this block is executed.
@@ -230,7 +223,7 @@ if __name__ == "__main__":
     # Instantiate Game Arena
     arena = Arena()
 
-    #Build Teams
+    # Build Teams
     arena.build_team_one()
     arena.build_team_two()
     game_is_running = True
@@ -240,11 +233,11 @@ if __name__ == "__main__":
         arena.show_stats()
         play_again = input("Play Again? Y or N: ")
 
-        #Check for Player Input
+        # Check for Player Input
         if play_again.lower() == "n":
             game_is_running = False
 
         else:
-            #Revive heroes to play again
+            # Revive heroes to play again
             arena.team_one.revive_heroes()
             arena.team_two.revive_heroes()
